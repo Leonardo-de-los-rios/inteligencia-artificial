@@ -1,10 +1,10 @@
 ;---------------------------------------------------------
 ; Item 2
 ;---------------------------------------------------------
-; Confeccione un programa que a trav�s de reglas indique:
-; � Dos personas con nombres diferentes
-; � Nadie se llama pedro
-; � Todo el mundo es mayor de edad
+; Confeccione un programa que a través de reglas indique:
+; • Dos personas con nombres diferentes
+; • Nadie se llama pedro
+; • Todo el mundo es mayor de edad
 ;---------------------------------------------------------
 
 (deftemplate persona

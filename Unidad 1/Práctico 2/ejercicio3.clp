@@ -3,8 +3,8 @@
 ;-------------------------------------------------------------
 ; Mabel y Gustavo se casaron y formaron una bella familia, 
 ; teniendo dos bellos hijos: Pedro y Laura. 
-; Ambos cónyuges tenían un hijo cada uno antes del matrimonio,
-; Agustín y Santiago respectivamente.
+; Ambos cÃ³nyuges tenÃ­an un hijo cada uno antes del matrimonio,
+; AgustÃ­n y Santiago respectivamente.
 ;-------------------------------------------------------------
 
 (deftemplate mujer
