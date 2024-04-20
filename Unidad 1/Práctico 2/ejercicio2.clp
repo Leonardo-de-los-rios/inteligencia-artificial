@@ -1,8 +1,11 @@
+;---------------------------------------------------------
 ; Item 2
-; Confeccione un programa que a través de reglas indique:
-; • Dos personas con nombres diferentes
-; • Nadie se llama pedro
-; • Todo el mundo es mayor de edad
+;---------------------------------------------------------
+; Confeccione un programa que a travï¿½s de reglas indique:
+; ï¿½ Dos personas con nombres diferentes
+; ï¿½ Nadie se llama pedro
+; ï¿½ Todo el mundo es mayor de edad
+;---------------------------------------------------------
 
 (deftemplate persona
   (slot nombre (type STRING))

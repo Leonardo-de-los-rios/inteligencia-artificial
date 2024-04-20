@@ -1,3 +1,10 @@
+;---------------------------------------------------------
+; Item 1
+;---------------------------------------------------------
+; Describa lo que realiza el siguiente código. Ejecútelo 
+; en CLIPS y muestre la misma por captura de pantalla.
+;---------------------------------------------------------
+
 (deftemplate persona
   (slot edad)
 )
