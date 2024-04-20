@@ -1,20 +1,3 @@
-;-------------------------------------------------------------
-; Item 3
-;-------------------------------------------------------------
-; Mabel y Gustavo se casaron y formaron una bella familia, 
-; teniendo dos bellos hijos: Pedro y Laura. 
-; Ambos cónyuges tenían un hijo cada uno antes del matrimonio,
-; Agustín y Santiago respectivamente.
-;-------------------------------------------------------------
-; • Mediante la definición de reglas:
-; • Mostrar los nombres de los hermanos hijos del matrimonio y
-; agregar los hechos (hermano <Nombre> <Nombre>) a la MT .
-; • Mostrar los nombres de los medios hermanos y agregar esos 
-; hechos a la MT (medio-hermano <Nombre> <Nombre>)
-; • Mostrar los nombres de los hermanastros y agregar los
-; hechos a la MT como tales. (hermanastro <Nombre> <Nombre>)
-;-------------------------------------------------------------
-
 (deftemplate mujer
   (slot nombre (type STRING))
 )
@@ -81,11 +64,9 @@
   (mujer (nombre ?madre))
   (hijx_de (hijx ?hijo1) (padre_madre ?padre))
   (hombre (nombre ?padre))
-  (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?madre&:(eq ?madre ?madre)))
-  (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?padre&:(eq ?padre ?padre)))
-
-  ; Analizar si ya existe la relación de hermanos
-  (not (hermano (nombre1 ?hijo1) (nombre2 ?hijo2)))
+  (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?madre_comun&:(eq ?madre_comun ?madre)))
+  (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?padre_comun&:(eq ?padre_comun ?padre)))
+  (not (hermano (nombre1 ?hijo1) (nombre2 ?hijo2)))    ;para chequear que ya no existe un hecho entre los hermanos 
   (not (hermano (nombre1 ?hijo2) (nombre2 ?hijo1)))
   =>
   (printout t ?hijo1 " y " ?hijo2 " son hermanos." crlf)
@@ -93,26 +74,26 @@
 )
 
 (defrule medios-hermanos-madre
-  (hijx_de (hijx ?hijo1) (padre_madre ?madre))
-  (mujer (nombre ?madre)) 
-  (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?madre))
+  (hijx_de (hijx ?hijo1) (padre_madre ?madre_comun))
+  (mujer (nombre ?madre_comun)) 
+  (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?madre_comun))
   (hijx_de (hijx ?hijo1) (padre_madre ?padre))
   (hombre (nombre ?padre))
   (not (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?padre)))
   =>
-  (printout t ?hijo1 " y " ?hijo2 " son medios hermanos por parte de madre:" ?madre crlf)
+  (printout t ?hijo1 " y " ?hijo2 " son medios hermanos por parte de madre:" ?madre_comun crlf)
   (assert (medio-hermano (nombre1 ?hijo1) (nombre2 ?hijo2)))
 )
 
 (defrule medios-hermanos-padre
-  (hijx_de (hijx ?hijo1) (padre_madre ?padre))
-  (hombre (nombre ?padre))
-  (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?padre))
+  (hijx_de (hijx ?hijo1) (padre_madre ?padre_comun))
+  (hombre (nombre ?padre_comun))
+  (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?padre_comun))
   (hijx_de (hijx ?hijo1) (padre_madre ?madre))
   (mujer (nombre ?madre))
   (not (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?madre)))
   =>
-  (printout t ?hijo1 " y " ?hijo2 " son medios hermanos por parte de padre:" ?padre crlf)
+  (printout t ?hijo1 " y " ?hijo2 " son medios hermanos por parte de padre:" ?padre_comun crlf)
   (assert (medio-hermano (nombre1 ?hijo1) (nombre2 ?hijo2)))
 )
 
@@ -121,10 +102,9 @@
   (hombre (nombre ?padre))
   (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?madre))
   (mujer (nombre ?madre))
-  (not (hijx_de (hijx ?hijo2) (padre_madre ?padre)))
+  (not (hijx_de (hijx ?hijo2&:(neq ?hijo2 ?hijo1)) (padre_madre ?padre)))
   (not (hijx_de (hijx ?hijo1) (padre_madre ?madre)))
   =>
   (printout t ?hijo1 " y " ?hijo2 " son hermanastros." crlf)
   (assert (hermanastro (nombre1 ?hijo1) (nombre2 ?hijo2)))
 )
-
