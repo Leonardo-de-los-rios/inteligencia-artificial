@@ -277,3 +277,161 @@
   (modify ?jarra3 (contenido 13))
   (modify ?visitado (jarra_a J3) (jarra_b JG))
 )
+
+; Regla 16: [Volcar 1 en 2 llene] = [J1, J2, J3, JG] / R=J1+J2, R>11, J1>0, D=R-11 => [D, 11, J3, JG]
+(defrule regla_16
+  ?jarra1 <- (jarra (contenido ?J1) (capacidad 5))
+  ?jarra2 <- (jarra (contenido ?J2) (capacidad 11))
+  (not (ultimo-visitado (jarra_a J1) (jarra_b J2)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?J2 11))
+  (test (> ?J1 0))
+  (test (> (+ ?J1 ?J2) 11))
+  =>
+  (bind ?R (+ ?J1 ?J2))
+  (bind ?D (- ?R 11))
+  (modify ?jarra1 (contenido ?D))
+  (modify ?jarra2 (contenido 11))
+  (modify ?visitado (jarra_a J1) (jarra_b J2))
+)
+
+; Regla 17: [Volcar 1 en 3 llene] = [J1, J2, J3, JG] / R=J1+J3, R>13, J1>0, D=R-13 => [D, J2, 13, JG]
+(defrule regla_17
+  (declare (salience 100))
+  ?jarra1 <- (jarra (contenido ?J1) (capacidad 5))
+  ?jarra3 <- (jarra (contenido ?J3) (capacidad 13))
+  (not (ultimo-visitado (jarra_a J1) (jarra_b J3)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?J3 13))
+  (test (> ?J1 0))
+  (test (> (+ ?J1 ?J3) 13))
+  =>
+  (bind ?R (+ ?J1 ?J3))
+  (bind ?D (- ?R 13))
+  (modify ?jarra1 (contenido ?D))
+  (modify ?jarra3 (contenido 13))
+  (modify ?visitado (jarra_a J1) (jarra_b J3))
+)
+
+; Regla 18: [Volcar 1 en G llene] = [J1, J2, J3, JG] / R=J1+JG, R>24, J1>0, D=R-24 => [D, J2, J3, 24]
+(defrule regla_18
+  (declare (salience 100))
+  ?jarra1 <- (jarra (contenido ?J1) (capacidad 5))
+  ?jarraG <- (jarra (contenido ?JG) (capacidad 24))
+  (not (ultimo-visitado (jarra_a J1) (jarra_b JG)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?JG 24))
+  (test (> ?J1 0))
+  (test (> (+ ?J1 ?JG) 24))
+  =>
+  (bind ?R (+ ?J1 ?JG))
+  (bind ?D (- ?R 24))
+  (modify ?jarra1 (contenido ?D))
+  (modify ?jarraG (contenido 24))
+  (modify ?visitado (jarra_a J1) (jarra_b JG))
+)
+
+; Regla 19: [Volcar 2 en 1 llene] = [J1, J2, J3, JG] / R=J2+J1, R>5, J2>0, D=R-5 => [5, D, J3, JG]
+(defrule regla_19
+  ?jarra2 <- (jarra (contenido ?J2) (capacidad 11))
+  ?jarra1 <- (jarra (contenido ?J1) (capacidad 5))
+  (not (ultimo-visitado (jarra_a J1) (jarra_b J2)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?J1 5))
+  (test (> ?J2 0))
+  (test (> (+ ?J2 ?J1) 5))
+  =>
+  (bind ?R (+ ?J2 ?J1))
+  (bind ?D (- ?R 5))
+  (modify ?jarra2 (contenido ?D))
+  (modify ?jarra1 (contenido 5))
+  (modify ?visitado (jarra_a J1) (jarra_b J2))
+)
+
+; Regla 20: [Volcar 2 en 3 llene] = [J1, J2, J3, JG] / R=J2+J3, R>13, J2>0, D=R-13 => [J1, D, 13, JG]
+(defrule regla_20
+  (declare (salience 100))
+  ?jarra2 <- (jarra (contenido ?J2) (capacidad 11))
+  ?jarra3 <- (jarra (contenido ?J3) (capacidad 13))
+  (not (ultimo-visitado (jarra_a J2) (jarra_b J3)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?J3 13))
+  (test (> ?J2 0))
+  (test (> (+ ?J2 ?J3) 13))
+  =>
+  (bind ?R (+ ?J2 ?J3))
+  (bind ?D (- ?R 13))
+  (modify ?jarra2 (contenido ?D))
+  (modify ?jarra3 (contenido 13))
+  (modify ?visitado (jarra_a J2) (jarra_b J3))
+)
+
+; Regla 21: [Volcar 2 en G llene] = [J1, J2, J3, JG] / R=J2+JG, R>24, J2>0, D=R-24 => [J1, D, J3, 24]
+(defrule regla_21
+  (declare (salience 100))
+  ?jarra2 <- (jarra (contenido ?J2) (capacidad 11))
+  ?jarraG <- (jarra (contenido ?JG) (capacidad 24))
+  (not (ultimo-visitado (jarra_a J2) (jarra_b JG)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?JG 24))
+  (test (> ?J2 0))
+  (test (> (+ ?J2 ?JG) 24))
+  =>
+  (bind ?R (+ ?J2 ?JG))
+  (bind ?D (- ?R 24))
+  (modify ?jarra2 (contenido ?D))
+  (modify ?jarraG (contenido 24))
+  (modify ?visitado (jarra_a J2) (jarra_b JG))
+)
+
+; Regla 22: [Volcar 3 en 1 llene] = [J1, J2, J3, JG] / R=J3+J1, R>5, J3>0, D=R-5 => [5, J2, D, JG]
+(defrule regla_22
+  ?jarra3 <- (jarra (contenido ?J3) (capacidad 13))
+  ?jarra1 <- (jarra (contenido ?J1) (capacidad 5))
+  (not (ultimo-visitado (jarra_a J1) (jarra_b J3)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?J1 5))
+  (test (> ?J3 0))
+  (test (> (+ ?J3 ?J1) 5))
+  =>
+  (bind ?R (+ ?J3 ?J1))
+  (bind ?D (- ?R 5))
+  (modify ?jarra3 (contenido ?D))
+  (modify ?jarra1 (contenido 5))
+  (modify ?visitado (jarra_a J1) (jarra_b J3))
+)
+
+; Regla 23: [Volcar 3 en 2 llene] = [J1, J2, J3, JG] / R=J3+J2, R>11, J3>0, D=R-11 => [J1, 11, D, JG]
+(defrule regla_23
+  ?jarra3 <- (jarra (contenido ?J3) (capacidad 13))
+  ?jarra2 <- (jarra (contenido ?J2) (capacidad 11))
+  (not (ultimo-visitado (jarra_a J2) (jarra_b J3)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?J2 11))
+  (test (> ?J3 0))
+  (test (> (+ ?J3 ?J2) 11))
+  =>
+  (bind ?R (+ ?J3 ?J2))
+  (bind ?D (- ?R 11))
+  (modify ?jarra3 (contenido ?D))
+  (modify ?jarra2 (contenido 11))
+  (modify ?visitado (jarra_a J2) (jarra_b J3))
+)
+
+; Regla 24: [Volcar 3 en G llene] = [J1, J2, J3, JG] / R=J3+JG, R>24, J3>0, D=R-24 => [J1, J2, D, 24]
+(defrule regla_24
+  (declare (salience 100))
+  ?jarra3 <- (jarra (contenido ?J3) (capacidad 13))
+  ?jarraG <- (jarra (contenido ?JG) (capacidad 24))
+  (not (ultimo-visitado (jarra_a J3) (jarra_b JG)))
+  ?visitado <- (ultimo-visitado)
+  (test (< ?JG 24))
+  (test (> ?J3 0))
+  (test (> (+ ?J3 ?JG) 24))
+  =>
+  (bind ?R (+ ?J3 ?JG))
+  (bind ?D (- ?R 24))
+  (modify ?jarra3 (contenido ?D))
+  (modify ?jarraG (contenido 24))
+  (modify ?visitado (jarra_a J3) (jarra_b JG))
+)
