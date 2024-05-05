@@ -3,12 +3,6 @@
   (slot capacidad (type INTEGER) (default ?DERIVE))
 )
 
-(deftemplate visita
-  (slot jarra_a (type SYMBOL) (defaulta ?NONE))
-  (slot jarra_b (type SYMBOL) (defaulta ?NONE))
-
-)
-
 (deffacts jarras-iniciales
   (jarra (contenido 0) (capacidad 5))
   (jarra (contenido 0) (capacidad 11))

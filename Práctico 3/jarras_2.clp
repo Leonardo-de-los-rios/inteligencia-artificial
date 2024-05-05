@@ -226,13 +226,6 @@
   (modify ?visitado (jarra_a J3) (jarra_b JG))
 )
 
-
-
-
-
-
-
-
 ; Regla 13: [Volcar G en 1 llene] = [J1, J2, J3, JG] / R=JG+J1, R>5, JG>0, D=R-5 => [5, J2, J3, D]
 (defrule regla_13
   ?jarraG <- (jarra (contenido ?JG) (capacidad 24))
