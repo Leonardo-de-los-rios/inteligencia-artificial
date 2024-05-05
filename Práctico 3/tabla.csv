@@ -1,0 +1,16 @@
+Identificador del camino;Ciudades;Km;Duración;Peajes;Tráfico
+1;San Juan-Caucete-Chepes;212;167;True;1
+2;San Juan-Caucete-Quines-Chepes;476;342;False;1
+3;San Juan-Caucete-Quines-Villa Dolores-Mina Clavero-Taninga-Chepes;641;570;False;1.5
+4;San Juan-Caucete-Quines-Mina Clavero-Taninga-Chepes;643;563;False;1.5
+5;San Juan-Caucete-Quines-Ruta Prov E91-Chepes;534;406;False;1
+6;San Juan-Caucete-San Luis-Quines-Chepes;622;453;False;0.5
+7;San Juan-Caucete-San Luis-Quines-Villa Dolores-Mina Clavero-Taninga-Chepes;719;627;False;1.5
+8;San Juan-Caucete-San Luis-Mina Clavero-Taninga-Chepes;791;668;False;1.5
+9;San Juan-San Luis-Quines-Ruta E91-Chepes;706;514;True;1
+10;San Juan-San Luis-Ruta 2-Villa Dolores-Mina Clavero-Taninga-Chepes;810;679;True;1.5
+11;San Juan-San Luis-Ruta 2-Mina Clavero-Taninga-Chepes;797;662;True;1.5
+12;San Juan-San Luis-Ruta 2-Ruta Prov E91-Chepes;727;519;True;1
+13;San Juan-Caucete-San Luis-Villa Mercedes-Ruta 2-Villa Dolores-Mina Clavero-Taninga-Chepes;882;719;True;1.5
+14;San Juan-Caucete-San Luis-Villa Mercedes-Ruta 2-Mina Clavero-Taninga-Chepes;869;702;True;1.5
+15;San Juan-Caucete-San Luis-Villa Mercedes-Ruta Prov E91-Chepes;797;558;True;0.5
