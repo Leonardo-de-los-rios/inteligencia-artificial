@@ -1,5 +1,6 @@
 (deftemplate combinacion
-    (slot letra) (slot numero (type INTEGER))
+  (slot letra)
+  (slot numero (type INTEGER))
 )
 
 (defrule definicion_de_hechos_iniciales
@@ -29,30 +30,33 @@
 )
 
 (defrule combinaciones 
-    (letra ?letra&~A)
-    (numero_valido ?num)
-    =>
-    (assert( combinacion (letra ?letra) (numero ?num)  ))
+  (letra ?letra&~A)
+  (numero_valido ?num)
+  =>
+  (assert (combinacion (letra ?letra) (numero ?num)))
 )
 
 (defrule func_objetivo 
-    ;comenzamos por las unidades
-    (combinacion (letra A) (numero ?numA)) ;lo traigo aqui para usar de referencia
-    (combinacion (letra L) (numero ?numL&~?numA)) 
-    (combinacion (letra S) (numero ?numS&~?numL&~?numA))
-    (test (= (mod (+ ?numL ?numS) 10) ?numA)) ;mod 10 debe dar A = 1;
-    ;combinacion para las decenas:
-    (test (= (mod (+ (* 20 ?numA) ?numL ?numS ) 100) (+ (* 10 ?numL) ?numA) ) )
-    ;el resto de la division entera para 20A+L+S debe ser 10L+A
-    ;combinacion para las centenas:
-    (combinacion (letra M) (numero ?numM&~?numS&~?numL&~?numA) ) 
-    (test (= (mod (+ (* 100 (+ ?numS ?numM) ) (* 20 ?numA) ?numL ?numS )  1000) (+ (* 110 ?numL) ?numA) ) )
-    =>
-    (printout t "Una solucion posible es:" crlf)
-    (printout t "A = " ?numA ", ")
-    (printout t "L = " ?numL ", ")
-    (printout t "S = " ?numS ", ")
-    (printout t "M = " ?numM ", " crlf)
-    (printout t "SAL+MAS=ALLA" crlf)
-    (printout t ?numS ?numA ?numL"+" ?numM ?numA ?numS"="?numA ?numL ?numL ?numA crlf)
+  ;comenzamos por las unidades
+  (combinacion (letra A) (numero ?numA)) ;lo traigo aqui para usar de referencia
+  (combinacion (letra L) (numero ?numL&~?numA)) 
+  (combinacion (letra S) (numero ?numS&~?numL&~?numA))
+  (test (= (mod (+ ?numL ?numS) 10) ?numA)) ;mod 10 debe dar A = 1;
+
+  ;combinacion para las decenas:
+  (test (= (mod (+ (* 20 ?numA) ?numL ?numS) 100) (+ (* 10 ?numL) ?numA)))
+
+  ;el resto de la division entera para 20A+L+S debe ser 10L+A
+  ;combinacion para las centenas:
+  (combinacion (letra M) (numero ?numM&~?numS&~?numL&~?numA))
+  (test (= (mod (+ (* 100 (+ ?numS ?numM)) (* 20 ?numA) ?numL ?numS) 1000) (+ (* 110 ?numL) ?numA)))
+  =>
+  (printout t "Una solucion posible es:" crlf)
+  (printout t "A = " ?numA ", ")
+  (printout t "L = " ?numL ", ")
+  (printout t "S = " ?numS ", ")
+  (printout t "M = " ?numM ", " crlf)
+  (printout t "SAL+MAS=ALLA" crlf)
+  (printout t ?numS ?numA ?numL"+" ?numM ?numA ?numS"="?numA ?numL ?numL ?numA crlf)
+  (halt)
 )
