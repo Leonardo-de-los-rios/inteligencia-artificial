@@ -49,14 +49,14 @@ def eval_distribucion(individual):
     area_utilizada = sum(w * h for _, _, w, h in distribucion)
     area_total = ANCHO * alto_total
     area_sin_usar = area_total - area_utilizada
-    return area_sin_usar,
+    return area_sin_usar
 
 toolbox.register("mate", tools.cxTwoPoint)
 toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 toolbox.register("select", tools.selTournament, tournsize=3)
 toolbox.register("evaluate", eval_distribucion)
 
-def principal():
+def main():
     random.seed(42)
     poblacion = toolbox.population(n=300)
     hof = tools.HallOfFame(1)
@@ -103,4 +103,4 @@ def principal():
     plt.show()
 
 if __name__ == "__main__":
-    principal()
+    main()
