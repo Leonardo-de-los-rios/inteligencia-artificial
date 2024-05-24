@@ -49,7 +49,7 @@ def eval_distribucion(individual):
     area_utilizada = sum(w * h for _, _, w, h in distribucion)
     area_total = ANCHO * alto_total
     area_sin_usar = area_total - area_utilizada
-    return area_sin_usar
+    return area_sin_usar,
 
 toolbox.register("mate", tools.cxTwoPoint)
 toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)

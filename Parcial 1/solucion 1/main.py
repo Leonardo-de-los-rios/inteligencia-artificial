@@ -49,7 +49,7 @@ def eval_layout(individual):
     used_area = sum(w * h for _, _, w, h in layout)
     total_area = WIDTH * total_height
     unused_area = total_area - used_area
-    return unused_area
+    return unused_area,
 
 toolbox.register("mate", tools.cxTwoPoint)
 toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
