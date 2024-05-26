@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Definición de los subrectángulos
-# subrectangulos = [(1,1),(2,3),(3,4),(7,3),(8,3)] # Población 4000 - Generaciones 50
-subrectangulos = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)] # Población 1000 - Generaciones 100
+subrectangulos = [(1,1),(2,3),(3,4),(7,3),(8,3)] # Población 4000 - Generaciones 50
+# subrectangulos = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)] # Población 1000 - Generaciones 100
 # subrectangulos = [(1,1),(10,9),(9,1)] # Población 2000 - Generaciones 1
 # subrectangulos = [(2,2),(3,3),(1,1),(4,4)] # Población 2000 - Generaciones 20
 # subrectangulos = [(5,1), (6,1)] # Población 10 - Generaciones 1000
@@ -18,8 +18,8 @@ contenedor_alto = 10
 probabilidad_seleccion = 1
 probabilidad_crossover = 0.8
 probabilidad_mutacion = 0.01
-poblacion_tamano = 1000
-generaciones = 100
+poblacion_tamano = 4000
+generaciones = 50
 
 def generar_individuo(subrectangulos, contenedor_ancho, contenedor_alto):
     individuo = []
@@ -51,14 +51,7 @@ def solapamiento(individuo):
     return solapamientos
 
 def altura_maxima_individuo(individuo):
-    altura_maxima = 0
-
-    for _, y,_, alto in individuo:
-        aux = y + alto
-        if(aux > altura_maxima):
-            altura_maxima = aux
-    
-    return altura_maxima
+    return max(y + alto for _, y, _, alto in individuo)
 
 def calcular_fitness(individuo, contenedor_alto):
     penalizacion_solapamiento = 999999999  # Penalización por solapamiento alta
@@ -162,7 +155,7 @@ def graficar_resultado(mejor_individuo, historial_fitness, contenedor_ancho, con
     ax1.set_aspect('equal')
 
     # Dibujar la línea roja a la altura del subrectángulo más alto
-    altura_maxima = max(y + alto for _, y, _, alto in mejor_individuo)
+    altura_maxima = altura_maxima_individuo(mejor_individuo)
     ax1.axhline(y=altura_maxima, color='red', linestyle='--')
 
     ax1.set_title('Mejor Solución')
@@ -170,9 +163,9 @@ def graficar_resultado(mejor_individuo, historial_fitness, contenedor_ancho, con
     if historial_fitness:
         # Grafica de la evolución del fitness
         ax2.plot(historial_fitness)
-        ax2.set_title('Evolución del Fitness')
+        ax2.set_title('Evolución de la Aptitud')
         ax2.set_xlabel('Generaciones')
-        ax2.set_ylabel('Fitness')
+        ax2.set_ylabel('Aptitud')
         ax2.grid(True)
 
     plt.tight_layout()
@@ -183,7 +176,7 @@ if __name__ == '__main__':
     graficar_resultado(mejor_individuo, historial_fitness, contenedor_ancho, contenedor_alto)
 
 # tests
-# individuo = [(9, 6, 1, 1), (0, 0, 2, 3), (0, 3, 3, 4), (3, 3, 7, 3), (2, 6, 8, 3)]
+# individuo = [(3, 6, 1, 1), (8, 0, 2, 3), (7, 3, 3, 4), (1, 6, 7, 3), (0, 0, 8, 3)]
 # fitness = calcular_fitness(individuo, contenedor_alto)
 # print("Fitness: ", fitness)
 # graficar_resultado(individuo, None, contenedor_ancho, contenedor_alto)
