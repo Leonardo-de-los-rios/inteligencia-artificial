@@ -1,0 +1,1785 @@
+ 
+
+
+                           ES Expert System
+                          Copyright (C) 1989
+                             Eric Summers
+                          127 Hopeland Lane
+                          Sterling, VA 22170
+
+
+                             USER'S GUIDE
+                             Version 1.0
+                             October 1990
+
+
+                               WARRANTY
+
+The  ES  Expert System carries no warranty of any kind.   In no  event  
+shall  Eric Summers be liable for any claims resulting  from  the  use  
+or misuse of the ES Expert System.   Any use of ES is  a  "use at your  
+own risk" endeavour.
+
+                             REGISTRATION
+
+To  register  as  a  user  of ES  expert  system  mail  the  following  
+information to me (Please Print):
+
+Name ____________________________ Phone ______________________________
+
+Address ______________________________________________________________
+
+City ____________________________ State _____________ Zip ____________
+
+Company _________________________ Phone ______________________________
+
+Comments _____________________________________________________________
+
+______________________________________________________________________
+
+______________________________________________________________________
+
+.pa  
+                         Chapter 1 - General
+
+ES  is  a  knowledge base development system designed to  run  on  the   
+IBM/AT  (or  100%  compatible  clones).    ES  was  developed  so  IBM   
+microcomputer    users   can   inexpensively  experiment  with   using   
+expert  system software.   
+
+1.1  SYSTEM REQUIREMENTS
+
+IBM/AT   or   equivalent  with  640KB  of  memory  and  a  hard   disk  
+(approximately 1 MB).    A  CGA  monitor monitor or monochrome monitor  
+is required.   It may be possible to use ES with floppy disks, but has  
+not been tested. 
+
+1.2  REPORTING BUGS
+
+An  attempt  has  been  made to debug ES as  completely  as  possible.    
+However,  there are undoubtedly bugs remaining.  I will attempt to fix   
+the bugs if you notify me.   If you are the only person that  finds  a  
+given  bug,   I will put your problem on the bottom of my queue.    If   
+you  think you have a problem,   write me and include a  floppy   disk   
+with the knowledge base,  screen dumps,  and any other evidence of the   
+problem.   No  specific dates can be given for fixing  software  bugs.   
+
+1.3  NEW FEATURES
+
+If  you can think of a new feature that ES should have,  please  write  
+me.   If there is sufficient demand,  I will consider developing a new  
+version  of  ES that includes your suggestion.   
+
+1.4  CONSULTATION
+
+At this time, NO consultation is offered.
+
+1.5  INSTALLATION
+
+There  are five files associated with the ES expert system,  this file  
+ESDOC,  the executable file ES.EXE,  and three demonstration knowledge  
+bases:  ES.KB,  SPILL.KB and DISEASE.KB.  You should make a directory,  
+call it EXPERT and copy all five files into this directory.
+
+1.6  FEATURES 
+
+ES has the following features:
+
+    1.   Backwards chaining, using global knowledge (non-frame based);  
+    and Forward chaining.  During forward chaining, backwards chaining  
+    is automatically activated if any facts can be inferred.
+
+    2.   Fact and rule knowledge editor.  FIRST, create the facts then  
+    create  the RULES.   The rule editor selects rule antecedents  and  
+    consequents from the list of facts. 
+
+    3.  Fuzzy set relations: fz=, fz<, fz> and fz<> are supported (see  
+    Chapter  8).  The  "usual" expert system rule relations  are  also   
+    supported: =, <>, <, <=, > and >=. 
+
+    4.  Certainty factors for both rule definition and user assertion.   
+    CF's   and  fuzzy  set  inclusion  factors  are  combined  when  a  
+    consultation is done. 
+
+    5.    Semi-non-monotonic   inference   engine.    Assertions   for  
+    conflicting inferences can be changed, depending upon fuzzy set or       
+    rule CF's,  ie,  ES can change its mind regarding a truth that  it       
+    may have determined.   However, ES is limited.  No attempt is made       
+    to   analyze/reassert/retract   any  conclusions  that  may   have       
+    previously  been  determined from an inference who's truth  CF  is       
+    subsequently  reversed.    If  you  need  a  comprehensive   truth       
+    maintenance  capability,  the  KEE  (tm) expert  system  shell  by       
+    Intellicorp does an excellent job of managing conflicts, using the       
+    "worlds"  concept (Patrick Winston discusses "worlds" in his  book       
+    "Artificial  Intelligence").   ES also supports multiple lines  of  
+    reasoning.
+
+    6.   ES  rules  are CONJUNCTIONS of ANTECEDENT SETs  and  multiple  
+    consequents.  Antecedent sets include:
+
+              *   AND ANTECEDENT SETS - the set is true if ALL of  the  
+         set antecedents prove true.   Resultant CF is the SMALLEST of  
+         antecedent  proved  true in the set.   An antecedent  is  the  
+         smallest component of an antecedent set (eg color = black).
+              *   OR ANTECEDENT SETS - the set is true if any  one  of  
+         the antecedents proves true (ALL set antecedents are tested);  
+         resultant CF is the LARGEST CF proved. 
+              *   XOR ANTECEDENT SETS - stop processing when the first  
+         antecedent in the set proves true.   
+
+    7.   Knowledge explanation.  ES explains the reasons for questions  
+    as well as question and value explanations.
+
+1.7  Limitations
+
+The   maximum   size  of  a  knowledge  base  (facts  and  rules)   is  
+approximately 80K.    If runtime errors occur,   a knowledge base (KB)  
+that  is too large  may  be the problem.    For both the read-only and   
+read-write   editors  that ES provides,  the maximum size that can  be  
+edited   is   approximately   64K.    When    displaying   inferences,   
+conclusion,  and scenario, the maximum is also 64K.     
+
+1.8  Example Knowledge Bases
+
+ES provides three simple knowledge bases:
+
+    1.    ES.KB  - this catchall KB demonstrates conflict  resolution.    
+    The fact "nice" can be proved via several rules,  and demonstrates  
+    the  conflict resolution facility of ES.   Several rules also make  
+    use of fuzzy set relations.  
+    2.   SPILL.KB - this KB demonstrates identifying the chemical name  
+    and contact for a chemical that may have been spilled.   This is a  
+    demonstration-only KB. 
+    3.  DISEASE.KB - this KB demonstrates identifying the disease name  
+    from sickness attributes.  This is a demo-only KB.
+
+1.9  Menus and Cursors
+
+Press the right and left arrow keys to move the cursor.   To select  a   
+pulldown option,   press the Enter key (or type one of the highlighted  
+Capital   letters).   In most cases,  ESC will return you to the  next  
+level up in the menu hiearchy.  When creating NEW knowledge (facts and  
+rules), ES will force you to complete the option you requested.  If ES  
+cannot find the knowledge (fact,  rules,  etc.),  the option will  not  
+activate  (eg,  nothing  will  happen if you attempt to  display  fact  
+names, and there are no facts yet defined in the KB).
+
+1.10  Editors
+
+ES  has two editors:   one a read-write editor with control keys  that  
+work much like WordStar (tm);  the other editor is read-only,  and the  
+only keys that work are the arrow and page keys.   With either editor,  
+ESC or F10 is the exit key.  
+
+1.11  Expert System Theory
+
+This  user's  guide contributes little towards the  theory  of  expert  
+systems.    However,   an  inexpensive  book,   "Understanding  Expert  
+Systems", by Mike Van Horn, The Waite Group, Publ., is a good starting  
+point to learn about expert systems theory.
+
+1.12  Suggestion for Getting Started
+
+To  get  started  using ES,  I suggest that you  experiment  with  the  
+SPILL.KB  or  DISEASE.KB  knowledge bases.   First,  do  backward  and  
+forward  chaining  (Consult option) with both KB's to  understand  the  
+user aspect,  then go onto the ES.KB knowledge base.   Next,  take the  
+SPILL.KB and expand it to recognize a new chemical that may have  been  
+spilled.  After this, you should be able to develop your own knowledge  
+bases. 
+
+1.13  Future?
+
+If  somehow able to acquire more advanced hardware than the IBM/PC,  I  
+would like to be able to develop more capable versions of ES for other  
+platforms,  including PS/2, Unix, and Apple Mac II. Some areas I would  
+like to investigate include:
+
+    *   Developing  a  frame-based  expert  system  with   object  
+    oriented   capabilities  including  classes  and  subclasses,  
+    instances,  multiple inheritance,  methods,  daemons,  and  a  
+    forward and backward chaining capability.
+
+    *   ES  curently  has  only  a  limited  conflict  resolution  
+    capability.   I would like to develop a more capable conflict  
+    resolution  capability  that allows conflicts to  be  further  
+    analysed,   including   removing   inferences   that   become  
+    subsequently  invalid due to a conflict,  and reassertion  of  
+    previously   deleted   conclusions  due  to  a   once-invalid  
+    inference  becoming  valid  again  during  the  course  of  a  
+    consultation.  
+
+    *  Developing a more capable user interface that makes use of  
+    mouse,   menus,   windows,  electronic  forms,  graphics  and  
+    hypertext/hypermedia.
+
+    *   Developing the ability to imbed selected ES  capabilities  
+    in a user application.   This will allow more intelligent and  
+    easier to use applications to be developed.
+
+    *   Developing  the  ability  to  define  "hooks"  for  user- 
+    developed  programs,  such  as allowing a user  to  integrate  
+    their own truth maintenance algorithm.
+
+    * Developing the ability to access information from databases  
+    and other sources.  
+
+
+.pa  
+                    Chapter 2 - Main Pulldown Menu
+
+
+This chapter explains how to use the Main Pulldown Menu.    To run the  
+ES  expert   system  type  es and then  press  Enter.   The  following  
+pulldown menu will appear:
+
+-----------------------------------------------------------------------------
+|     File        fActs       Rules     Consult     TruthMte    fZsets      |
+-----------------------------------------------------------------------------
+ 
+ 
+
+------------------------------------------------------------------ 
+| Press arrows to move cursor.  Select with CAP letter or Enter. |
+------------------------------------------------------------------
+                   Figure 2.1.  Main Pulldown Menu
+
+From  the  Main Pulldown Menu,  type F to access the File  menu  which  
+appears below (Fig 2.2).  Chapter 3 details use of the File menu. 
+
+-----------------------------------------------------------------------------
+|     File        fActs       Rules     Consult     TruthMte    fZsets      |
+-----------------------------------------------------------------------------
+        |Load knowledge base       | 
+        |Save knowledge base       | 
+        |New knowledge base        | 
+        |Purpose for knowledge base|                            
+        |edit pUrpose for KB       |                            
+        |eDit a disk file          |                            
+        |temporary eXit to DOS     |                            
+        |Quit                      |                            
+        ----------------------------                            
+                      Figure 2.2.  File Options
+
+From  the  Main Pulldown Menu,  type A to access the Facts menu  which  
+appears below (Fig 2.3).  Chapter 4 details use of the Facts menu. 
+
+-----------------------------------------------------------------------------
+|     File        fActs       Rules     Consult     TruthMte    fZsets      |
+-----------------------------------------------------------------------------
+                    |Display fact names| 
+                    |Add new facts     | 
+                    |Edit existing fact| 
+                    |deLete facts      |
+                    --------------------
+
+                      Figure 2.3.  Facts Options
+
+From  the Main Pulldown Menu,  type R to access the Rules  menu  which  
+appears below (Fig 2.4).  Chapter 5 details use of the Rules menu. 
+
+-----------------------------------------------------------------------------
+|     File        fActs       Rules     Consult     TruthMte    fZsets      |
+----------------------------------------------------------------------------- 
+                                |Display rules        | 
+                                |Add new rules        | 
+                                |deLete existing rules| 
+                                |Edit existing rules  |
+                                |Rename rules         |
+                                -----------------------
+
+                      Figure 2.4.  Rules Options
+
+From  the Main Pulldown Menu,  type C to access the Consult menu which  
+appears below (Fig 2.5).  Chapter 6 details use of the Consult menu. 
+
+-----------------------------------------------------------------------------
+|     File        fActs       Rules     Consult     TruthMte    fZsets      |
+-----------------------------------------------------------------------------
+                                 |Backward chain (determine goal)           |
+                                 |Forward chain (reason data => conclusions)|
+                                 |display Conclusions                       |
+                                 |display Scenario                          |
+                                 --------------------------------------------
+
+                     Figure 2.5.  Consult Option
+
+
+From the Main Pulldown Menu,  type T to access the TruthMte menu which  
+appears below (Fig 2.6).  Chapter 7 details use of the TruthMte menu. 
+
+-----------------------------------------------------------------------------
+|     File        fActs       Rules     Consult     TruthMte    fZsets      |
+-----------------------------------------------------------------------------
+                                                      |set Threshold CF     | 
+                                                      |Display threshold CF | 
+                                                      |set for 'Running' TMS| 
+                                                      |set for 'Average' TMS|
+                                                      -----------------------
+
+                Figure 2.6.  Truth Maintenance Options
+
+From  the Main Pulldown Menu,  type Z to access the fZsets menu  which  
+appears below (Fig 2.7).  Chapter 8 details use of the fZsets menu. 
+
+
+-----------------------------------------------------------------------------
+|     File        fActs       Rules     Consult     TruthMte    fZsets      |
+-----------------------------------------------------------------------------
+                                                          |New fuzzy sets   |
+                                                          |Delete fuzzy sets|
+                                                          |Edit fuzzy sets  |
+                                                          -------------------
+
+                    Figure 2.7.  Fuzzy Set Options
+
+.pa 
+
+                        Chapter 3 - File Menu
+
+3.1  Loading a knowledge base
+
+If  you  select  L  (Load Knowledge base)  from  the  File  menu,  the  
+following menu will appear.  Move the cursor to the knowledge base you  
+wish to load from disk, then press Enter.
+
+-----------------------------------------------------------------------------
+|     File        fActs       Rules     Consult     TruthMte    fZsets      |
+-----------------------------------------------------------------------------
+     ---- Select knowledge base ---- 
+     | DISEASE.KB                  | 
+     | ES.KB                       | 
+     | SPILL.KB                    |
+     | ..\                         |                           
+     | ANN\                        |                           
+     | ANSWERS\                    |
+     | BGI\                        |                           
+     | EXAMPLES\                   |
+     | FRAME\                      |    
+     | HYPTEXT\                    |
+     | NUEXPERT\                   |
+     | NUFRAME\                    |
+     | OBJECT\                     |                           
+     | PIE\                        |
+     -------------------------------
+
+                Figure 3.2.  Loading a Knowledge Base 
+
+3.2  Saving a knowledge base
+
+If  you  select  S  (Save Knowledge base)  from  the  File  menu,  the  
+following  read  prompt will appear.   Type the name of the  file  and  
+press Enter.   You must include a file type of KB.  During KB creation  
+and editing, periodic saves are suggested.
+
+         --------------------------------------------------- 
+         | Type filename to store knowledge in:  myfile.kb |
+         --------------------------------------------------- 
+             Figure 3.3.  Saving a Knowledge base to disk 
+
+3.3  Making a New Knowledge Base
+
+If you select N (New Knowledge base) from the File menu, the following  
+(yes/no)  read  prompt will appear.   Type y if you wish to  save  the  
+current knowledge base;  you will then be prompted for file name as in  
+section 3.2 above.
+
+                   -------------------------------- 
+                   | Save current knowledge (y/n) |
+                   --------------------------------
+                    Figure 3.4  New Knowledge Base
+ 
+
+3.4  Purpose for Knowledge Base
+
+If  you  select P (Purpose of KB) from the File  menu,  the  following  
+read/only  (R/O) editor screen will appear.   Press ESC or F10 to exit  
+editor.
+
+--------------------------------- Purpose -----------------------------------
+|This knowledge base helps identify chemical spills.                        |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+               Figure 3.5.  Purpose for Knowledge Base
+
+
+3.5  Editing Purpose for Knowledge Base
+
+If  you  select  U  (Edit purpose for KB)  from  the  File  menu,  the  
+following read/write (R/W) editor screen will appear.   Now,  type the  
+text that explains the purpose for your knowledge base.   Press ESC or  
+F10 to exit editor.
+
+--------------------------------- Purpose -----------------------------------
+|  Line 1     Col 1       Indent  Insert                                    |
+|This knowledge base helps identify chemical spills.                        |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+            Figure 3.6  Editing Purpose for Knowledge Base
+
+3.6  Editing a Text File
+
+If  you  select D (Edit text file) from the File  menu,  you  will  be  
+prompted  (see Fig 3.7) for a file name and a read/write editor screen  
+will appear.  Type the text you wish to save in a disk file.  Existing  
+disk files may also be edited.   Press ESC or F10 to exit editor.  The  
+knowledge bases used by ES are all in text form,  and you may edit the  
+structures.   However,  any modification may invalidate your knowledge  
+base, and it is suggested that you NOT edit any KB's.
+
+                -------------------------------------- 
+                | Type name of file to edit:  myfile |
+                --------------------------------------
+                   Figure 3.7  Editing a text file
+
+
+3.7  Temporary exit to DOS
+
+You may temporarily exit to DOS if you press D from the File menu.  To  
+return to ES from DOS, type the DOS EXIT command.
+ 
+
+3.8  Quit
+
+When  you are finished using ES,  select Q from the  File  menu.   The  
+following prompt will then appear.   Type y if you wish to permanently  
+exit ES or n to continue using ES.
+
+                      ------------------------- 
+                      | Are you sure (y/n): y |
+                      -------------------------
+                Figure 3.8 Confirmation to Quit Prompt
+
+.pa 
+                        Chapter 4.  Facts Menu
+
+There are three types of facts:  
+
+   *   numeric facts - the value is always a number (integer or real);  
+A valid range may be specified for the fact.
+   *   single-valued symbolic - the value is always a symbol.
+   *   multiple-valued  symbolic  - the value may  be  more  than  one  
+symbol.
+
+4.1  Displaying Fact Names
+
+If you type D (Display fact names) from the Facts menu,  the following  
+popup menu will appear.   Press up/down arrows,  PGUP,  PGDN, HOME and  
+END  keys to move through the menu.   Press Enter to return  to  Facts  
+Menu.  All other ES popup menus follow these key conventions.
+
+                        ----- Fact names ---- 
+                        |Contact            | 
+                        |chemical           |
+                        |chemical type      | 
+                        |color              | 
+                        |density            | 
+                        |need to do cleanup | 
+                        |quantity           | 
+                        |smell              | 
+                        --------------------- 
+                    Figure 4.1 Display fact names
+
+4.2  Add a new fact to knowledge base
+
+To add a new fact to KB, type A from the Facts menu, and the following  
+read  prompt will appear.   If the name you type already  exists,  you  
+will be notified.
+ 
+                  --------------------------------- 
+                  | Type name of new fact:  color |
+                  --------------------------------- 
+                  Figure 4.2 Adding name of new fact
+
+The  following menu will then appear.   Select the type that you  wish  
+the fact to be.
+
+                      ---- Select type fact ----
+                      |Symbolic single valued  |
+                      |symbolic Multiple valued|
+                      |Numeric                 |
+                      --------------------------
+                  Figure 4.3 Selecting new fact Type
+
+If you select N (Numeric),  you will be prompted for the fact question  
+(see  Fig.  4.9) and be returned to the Facts Menu.   If you select  S  
+(single) or M (multiple), you will be prompted for the possible values  
+for  the  fact  shown in Fig 4.17.   You will be able to add  as  many  
+values for the symbolic fact as you need (see Fig 4.18). 
+
+4.3  Editing Facts
+
+If you press E from the Facts menu,  the following menu will appear.  
+
+                   --- Select fact to edit -------
+                   |Contact                      |
+                   |chemical                     |
+                   |chemical type                |
+                   |color                        |
+                   |density                      |
+                   |need to do cleanup           |
+                   |quantity                     |
+                   |smell                        |
+                   -------------------------------        
+                    Figure 4.4 Select Fact to Edit
+
+Move the cursor to the fact you wish to edit and press Enter.   If you  
+select a numeric fact (in this example "quantity"), the following menu  
+will appear:
+
+                 ---Select edit opt for: quantity--- 
+                 |display Fact                     |         
+                 |Set Range                        |         
+                 |deleTe range                     |         
+                 |Question                         |         
+                 |reaSon                           |         
+                 |question eXplanation             |         
+                 |display Conclusions              |         
+                 |Add a conclusion                 |         
+                 |eDit a conclusion                |         
+                 |deLete a conclusion              |         
+                 |edit fallthrouGh text            |
+                 |delete fallthrougH text          |
+                 -----------------------------------         
+                  Figure 4.5  Numeric fact edit menu
+
+If  you select F (display Fact) from the edit opt menu,  the following  
+will display.  Press Enter to return to Edit fact menu.
+
+                  --- Values for fact: quantity --- 
+                  |Type --> numeric               |
+                  |Range: 0 to 10000000           | 
+                  ---------------------------------
+                 Figure 4.6 Numeric Fact Information
+
+If  you select S (Set Range) from edit fact menu,  ES will prompt  you  
+for the lower and upper bound as in the following.  In each case, type  
+the  real number and press Enter.   If you do not type a  number,  the  
+prompt will appear until you do.
+ 
+                         -------------------
+                         | Lower bound:  0 |
+                         -------------------
+                    Figure 4.7 Setting Lower Bound 
+
+
+                      --------------------------
+                      | Upper bound:  55333000 |
+                      --------------------------
+                    Figure 4.8 Setting Upper bound 
+
+
+Press  T if you need to delete the range.   If no range is present  in  
+the KB,  during a forward or backward chaining, any value for the fact  
+will do. 
+
+Press Q if you wish to edit the fact question text,  and the following  
+R/W editor window will appear.
+
+-------------------------------- Question -----------------------------------
+|  Line 1     Col 1       Indent  Insert                                    |
+|Quantity of chemical spilled?                                              |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+                   Figure 4.9 Editing Fact question 
+
+Press R if you need to edit the reason for the fact question,  and the  
+following R/W editor window will appear.
+
+--------------------------------- Reason ------------------------------------
+|  Line 1     Col 1       Indent  Insert                                    |
+|A large enough quantity is critical.                                       |
+|If sufficient, cleanup will be necessary.                                  |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+               Figure 4.10 Editing Reason for Question 
+
+Type  S  if you need to editing the explantion for the fact  question,  
+and the following R/W editor window will appear.
+
+---------------------------- Fact Explanation -------------------------------
+|  Line 1     Col 49      Indent  Insert                                    |
+|Quantity of chemical spill, measured in gallons.                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+              Figure 4.11 Explanation for Fact Question
+
+From  the  Edit  Fact menu,  press C to display the text  for  a  fact  
+conclusion, selecting specfic conclusion as in Fig 4.12.
+  
+                  ------ Display which conclusion ---
+                  |quantity = 0                     |
+                  |quantity = 99.99                 |
+                  -----------------------------------
+               Figure 4.12 Select Conclusion to display
+ 
+From  Fig 4.10 above,  select the conclusion you wish to display,  and  
+the following R/W editor window will appear (Fig 4.13). 
+
+-------------------------Conclusion=>quantity = 0----------------------------
+|Strange, the quantity of chemical spilled was 0.0!!!                       |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+             Figure 4.13 Display specific conclusion text
+
+If  you need to edit a fact conclusion,  select D from the edit  optin  
+menu,  and you can select the conclusion to edit from the menu in  Fig  
+4.14.   If you select a conclusion,  a R/W edit window will appear and  
+you can editing the existing conclusion text.
+ 
+                  ------ Edit which conclusion ---
+                  |quantity = 0                  |
+                  --------------------------------
+            Figure 4.14 Select Specific Conclusion to Edit
+ 
+To delete a fact conclusion,  select L from the edit option menu,  and  
+the following menu will appear.   Move the cursor to the fact you want  
+deleted and press Enter.
+ 
+                  ------ Delete which conclusion ---
+                  |quantity = 0                    |
+                  ----------------------------------
+             Figure 4.15 Delete specific conclusion text
+
+
+Fall  through  - Fall through is a special condition test in  ES.   
+It is impossible to have a rule for every condition in a KB, such  
+as color,  density and smell of a chemical, which in the SPILL.KB  
+knowledge base, define what the chemical spill is.  ES allows the  
+consultation (FC or BC) to stop if "fall through" is defined  for  
+a given fact such as "chemical".   You set this up by selecting G  
+(edit  fallthrouGh  text) from the symbolic or numeric fact  edit  
+(Fig.  4.5 above and Fig.  4.16 below).   A R/W window will  then  
+appear  and you can edit the text for the fall through condition.   
+This  text is subsequently displayed (via  selecting  Conclusions  
+from  Consult menu (Fig.  2.5 above) if during consultation,  the  
+fact value cannot be inferred.   Should you decide to remove fall  
+through for a fact,  select H (delete fallthrougH text) from menu  
+in Fig. 4.5 above or Fig. 4.16 below.
+
+ 
+If  you select a symbolic fact to edit (in this example "color"),  the  
+following menu will appear:
+
+                   ---Select edit opt for: color--- 
+                   |Display values                | 
+                   |Add a value                   |
+                   |dElete a value                |
+                   |Question                      | 
+                   |reaSon                        | 
+                   |edit question eXplanation     | 
+                   |edit Value explanations       | 
+                   |display Conclusions           | 
+                   |add a cOnclusion              | 
+                   |ediT a conclusion             | 
+                   |deLete a conclusion           | 
+                   |edit fallthrouGh text         |
+                   |delete fallthrougH text       |
+                   -------------------------------- 
+                  Figure 4.16  Editing Symbolic Fact
+ 
+If you select A (Add a value), the following prompt will appear.  Type  
+the new value for the fact.
+
+
+
+
+               --------------------------------------- 
+               | Type a value for fact color: orange |
+               ---------------------------------------
+                  Figure 4.17 New fact value Prompt
+
+You will be allowed to add another value (Fig 4.18) as shown:
+
+                      --- Add another value? --- 
+                      |Yes                     | 
+                      |No                      |
+                      --------------------------
+               Figure 4.18 Add another new value Prompt
+
+If  you need to delete a fact value,  select D from the Edit  symbolic  
+fact menu (Fig. 4.16) and the following menu will appear.  Move cursor  
+to the fact value you wish to delete and press Enter.
+
+                    --- Delete value for: color--- 
+                    |red                         | 
+                    |black                       | 
+                    |green                       | 
+                    |brown                       | 
+                    |yellow                      | 
+                    |clear                       | 
+                    |orange                      | 
+                    ------------------------------ 
+                  Figure 4.19 Delete Fact Value Menu
+ 
+From Edit Fact menu (Fig 4.5 or 4.16) type Q if you desire to edit the  
+text  for  the fact question and the following R/W editor window  will  
+appear.  Correct the text and press F10 or ESC to exit.  
+
+-------------------------------- Question -----------------------------------
+|  Line 1     Col 1       Indent  Insert                                    |
+|What color is the chemical?                                                |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+                 Figure 4.20 Edit Fact Question Text
+
+Type  R  (edit  Reason) if you need to edit the reason  for  the  fact  
+question (See Fig 4.21). 
+
+--------------------------------- Reason ------------------------------------
+|  Line 1     Col 1       Indent  Insert                                    |
+|Color goes a long way towards identifying the chemical.                    |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+                  Figure 4.21 Edit Fact Reason Text
+
+Type X if you need to edit the fact explanation (see Fig 4.22).
+
+---------------------------- Fact Explanation -------------------------------
+|  Line 2     Col 40      Indent  Insert                                    |
+|The major color of the chemical such as                                    |
+|red, green, blue, ... or a hue of such.                                    |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+                  Figure 4.22 Fact Explanation Text
+
+4.4 Delete Facts
+
+If  you need to delete a fact from the knowledge base,  select L  from  
+the Facts menu and the following menu (Fig 4.23) will appear.   Select  
+the fact you need to delete and press Enter.  A confirmation menu will  
+appear (Fig. 4.24).
+
+                    --- Select fact to delete ---
+                    |Contact                    | 
+                    |chemical                   | 
+                    |chemical type              | 
+                    |color                      | 
+                    |density                    | 
+                    |need to do cleanup         | 
+                    |quantity                   | 
+                    |smell                      | 
+                    ----------------------------- 
+                   Figure 4.23 Delete specific Fact 
+
+ 
+                      ------------------------- 
+                      | Are you sure (y/n): y |
+                      -------------------------
+              Figure 4.24 Delete Fact Confirmation Menu
+.pa 
+                        Chapter 5 - Rules Menu
+
+After you have created some facts (see chapter 4), you can then create  
+and  edit the rules,  which make use of facts and fact  values.   This  
+chapter discusses the editing of rules.
+
+5.1  Displaying Rules
+
+From  the Rules Menu,  press D to display the current rules,  and  the  
+following  screen will appear.   Move the cursor until the name of the  
+rule  you wish to display appears,  then press Enter.   The rule  will  
+appear in the "Rule" window.
+
+--- Select rule name to display ---  ----------------- Rule -----------------
+|Acid type rule                   |  |Name: crude oil rule                  |
+|Base type rule                   |  |IF                                    |
+|Carroll rule                     |  |   AND SET:                           |
+|Rule for gasoline                |  |      density = high                  |
+|Shirley rule                     |  |      smell = oily                    |
+|Sodium hydroxide rule            |  |      color = black                   |
+|alcohol rule                     |  |                                      |
+|benzene rule                     |  |THEN                                  |
+|cleanup factor rule              |  |      chemical = crude oil CF=0.8     |
+|crude oil rule                   |  |                                      |
+|petrol type rule                 |  |                                      |
+|rule ammonia                     |  |                                      |
+|rule hcl                         |  |                                      |
+|rule plastic                     |  |                                      |
+|sulfuric acid rule               |  |                                      |
+-----------------------------------  ----------------------------------------
+                       Figure 5.1 Display Rules
+
+5.2  Deleting a rule 
+
+To  delete  an existing rule,  select L from the Rules Menu,  and  the  
+following menu will appear (Fig 5.2).  Move the cursor to the rule you  
+wish  to delete and press Enter.   A confirmation prompt  will  appear  
+(Fig 5.3).
+
+--- Select rule name to delete ----  ----------------- Rule -----------------
+|Acid type rule                   |  |Name: crude oil rule                  |
+|Base type rule                   |  |IF                                    |
+|Carroll rule                     |  |   AND SET:                           |
+|Rule for gasoline                |  |      density = high                  |
+|Shirley rule                     |  |      smell = oily                    |
+|Sodium hydroxide rule            |  |      color = black                   |
+|alcohol rule                     |  |                                      |
+|benzene rule                     |  |THEN                                  |
+|cleanup factor rule              |  |      chemical = crude oil CF=0.8     |
+|crude oil rule                   |  |                                      |
+|petrol type rule                 |  |                                      |
+|rule ammonia                     |  |                                      |
+|rule hcl                         |  |                                      |
+-----------------------------------  ----------------------------------------
+                       Figure 5.2 Delete a rule 
+
+                      -------------------------
+                      | Are you sure (y/n): y |
+                      -------------------------
+                 Figure 5.3 Delete Rule Confirmation
+
+5.3  Adding a new Rule 
+
+To  add  a new rule,  select A from the Rules menu and  the  following  
+prompt  will  appear.   Type the name of the new rule.   You  will  be  
+notified if the name already exists.
+
+             -------------------------------------------
+             | Type name for new rule:  crude oil rule |
+             -------------------------------------------
+                     Figure 5.4 Add new rule name
+
+Next you will be prompted (Fig 5.5) for the antecedent set type.  
+
+                  --- Select type antecedent set ---
+                  |And                             |
+                  |Or                              |
+                  |Xor                             |
+                  ----------------------------------
+                      Figure 5.5 Select Set Type
+
+ES  will then build the individual antecedents for the antecedent  set  
+(See Fig. 5.6).
+
+                   --- Select antecedent name: ---
+                   |Contact                      |
+                   |chemical                     |
+                   |chemical type                |
+                   |color                        |
+                   |density                      |
+                   |need to do cleanup           |
+                   |quantity                     |
+                   |smell                        |
+                   -------------------------------          
+                  Figure 5.6 Select antecedent name
+
+If you select a fact that is symbolic, the following menu will appear.   
+Select  the  appropriate antecedent relation (Fig 5.7).   If the  fact  
+selected is numeric, the menu will have addtional relations (<, <=, >,  
+>=).
+
+                  --- Select symbolic operator: ---
+                  |=                              |
+                  |<>                             |
+                  ---------------------------------
+                      Figure 5.7 Select operator
+
+Next, select a value for the relation, shown in Fig. 5.8.
+
+ 
+                    --- Select value for color---
+                    |white                      |
+                    |red                        |
+                    |black                      |
+                    |green                      |
+                    |brown                      |
+                    |yellow                     |
+                    |clear                      |
+                    -----------------------------
+                  Figure 5.8 Select antecedent Value
+
+
+If  you  select a numeric fact (Fig 5.6) the following type menu  will  
+appear (Fig 5.9).  
+
+                     --- Select numeric type: ---
+                     |Real number               |
+                     |fuzzy Set                 |
+                     ---------------------------- 
+           Figure 5.9 Select numeric antecedent value type
+
+If  you  select  Real number from  Fig.  5.9,  the  following  numeric  
+relations will appear (Fig 5.10)
+
+                   --- Select numeric operator: ---
+                   |=                             |
+                   |<>                            |
+                   |<                             |
+                   |<=                            |
+                   |>                             |
+                   |>=                            |
+                   -------------------------------- 
+                  Figure 5.10 Real number relations
+
+You  will then be prompted for the number value for the relation as in  
+Fig. 5.11.
+
+            ---------------------------------------------
+            | Type a numeric value for: quantity 543210 |
+            ---------------------------------------------
+              Figure 5.11 Real number value for relation 
+
+If you select fuzzy Set (see Fig 5.9), the following menu will appear,  
+select the fuzzy set relation.
+
+                  --- Select fuzzy set relation ---
+                  |fz=                            |
+                  |fz<>                           |
+                  |fz>                            |
+                  |fz<                            |
+                  ---------------------------------
+              Figure 5.12 Select fuzzy set relation type
+
+Next, select the fuzzy set symbol as in Fig 5.13.
+ 
+                   --- Select fuzzy set symbol: ---
+                   |large spill                   |
+                   --------------------------------
+          Figure 5.13 Select fuzzy set symbol for antecedent
+
+If more antecedents are needed for the antecedent set,  select Y  from  
+the following menu (Fig 5.14).
+
+                     --- Another antecedent? ---
+                     |Yes                      |
+                     |No                       |
+                     ---------------------------
+                  Figure 5.14 Add another antecedent
+
+If  you select N from the menu in Fig 5.14,  the following  menu  will  
+appear,  allowing you to create another antecedent set.  If you select  
+Y, you will be prompted for another set and antecedent values.  
+
+                    --- Another antecedent set ---
+                    |Yes                         |
+                    |No                          |
+                    ------------------------------
+                   Figure 5.15 Add another Ante Set
+
+If you select N to the menu in Fig 5.15, you will be prompted for rule  
+consequent values, as in Fig. 5.16.
+
+                   --- Select consequent name: ---
+                   |Contact                      |  
+                   |chemical                     |
+                   |chemical type                | 
+                   |color                        |
+                   |density                      |
+                   |need to do cleanup           |
+                   |quantity                     |
+                   |smell                        |
+                   -------------------------------        
+                 Figure 5.16 Specific consequent name
+
+When  you select a consequent,  from above,  you will need to set  the  
+value for the consequent, shown in Fig. 5.17. 
+
+                   --- Select value for chemical---
+                   |crude oil                     | 
+                   |HCl                           |
+                   |NaOH                          |
+                   |H2SO4                         |
+                   |Plastic                       |
+                   |Benzene                       |
+                   |gasoline                      |
+                   |alcohol                       |
+                   |ammonia                       |
+                   --------------------------------
+                 Figure 5.17 Select consequent value
+ 
+Next,  set the certainty factor for the rule consequent,  shown in Fig  
+5.18.  Type a value between -1.0 and 1.0.  
+
+                          -----------------
+                          | Type CF:  1.0 |
+                          -----------------
+                  Figure 5.18 Specify consequent CF
+
+If  your rule needs to prove more than one consequent,  select Y  from  
+the following menu (Fig 5.19).
+
+                      --- Another consequent ---
+                      |Yes                     |
+                      |No                      |
+                      --------------------------
+                  Figure 5.19 Add another consequent
+
+If you select N from the above menu, you will be given the opportunity  
+to create another new rule (Fig 5.20).
+
+                       --- Add another rule ---
+                       |Yes                   |
+                       |No                    |
+                       ------------------------ 
+                     Figure 5.20 Add another Rule
+
+WHen finished creating rules (You select N to menu in Fig.  5.20), you  
+are returned to the Rule Menu.
+
+5.4  Renaming rules
+
+To rename a rule,  select R from the Rules Menu and the following menu  
+will  appear (5.21).   Move cursor to the rule you need to rename  and  
+press Enter.
+
+                  --- Select rule name to rename ---
+                  |Acid type rule                  |
+                  |Base type rule                  |
+                  |Carroll rule                    |
+                  |Rule for gasoline               |
+                  |Shirley rule                    |
+                  |Sodium hydroxide rule           |
+                  |alcohol rule                    |
+                  |benzene rule                    |
+                  |cleanup factor rule             |
+                  |crude oil rule                  |
+                  |petrol type rule                |
+                  |rule ammonia                    |
+                  |rule hcl                        |
+                  |rule plastic                    |
+                  |sulfuric acid rule              |
+                  ----------------------------------
+                  Figure 5.21 Select rule to Rename
+
+ 
+The following prompt will next appear.   Type the new name of the rule  
+and press Enter.  You will be notified if rulename already exists.
+
+   ----------------------------------------------------------------
+   | Type name to replace crude oil rule with:  my crude oil rule |
+   ----------------------------------------------------------------
+                     Figure 5.22 Supply rule name
+
+
+5.6  Cloning a new rule
+
+To clone a rule,  select C from the Rules Menu, and the following menu  
+will  appear.   Select  the current rule you need to clone  and  press  
+Enter.
+                  --- Select rule name to clone  ---
+                  |Acid type rule                  |
+                  |Base type rule                  |
+                  |Carroll rule                    |
+                  |Rule for gasoline               |
+                  |Shirley rule                    |
+                  |Sodium hydroxide rule           |
+                  |alcohol rule                    |
+                  |benzene rule                    |
+                  |cleanup factor rule             |
+                  |crude oil rule                  |
+                  |petrol type rule                |
+                  |rule ammonia                    |
+                  |rule hcl                        |
+                  |rule plastic                    |
+                  |sulfuric acid rule              |
+                  ----------------------------------
+                   Figure 5.23 Select rule to Clone
+
+You will need to give the cloned rule a new name, as in Fig. 5.24.
+
+         ---------------------------------------------------
+         | Name for rule you just cloned:  my ammonia rule |
+         ---------------------------------------------------
+                 Figure 5.24 Supply cloned rule name
+
+5.7  Editing existing rules
+
+If  you need to edit an existing rule,  select E from the Rules  Menu,  
+and the following menu will appear (Fig 5.25).
+.pa 
+                   --- Select rule name to edit ---
+                   |Acid type rule                | 
+                   |Base type rule                |
+                   |Carroll rule                  |
+                   |Rule for gasoline             |
+                   |Shirley rule                  |
+                   |Sodium hydroxide rule         |
+                   |alcohol rule                  |
+                   |benzene rule                  |
+                   |cleanup factor rule           |
+                   |my ammonia rule               |
+                   |my crude oil rule             |
+                   |petrol type rule              |
+                   |rule ammonia                  |
+                   |rule hcl                      |
+                   |rule plastic                  |
+                   |sulfuric acid rule            |
+                   --------------------------------
+                   Figure 5.25 Select rule to edit
+
+
+After  the desired rule is selected,  the following screen will appear  
+(Fig 5.26).
+
+--- Edit rule component: ----------------------------- Rule -----------------
+|Edit antecedent set       |            |Name: my crude oil rule            |
+|add new Antecedent set    |            |IF                                 |
+|add new Consequent        |            |   AND SET:                        |
+|Delete consequent         |            |      color = black                |
+----------------------------            |                                   |
+                                        |THEN                               |
+------------ Antecedent Set: -----------|      chemical = crude oil CF=1    |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+-----------------------------------------------------------------------------
+                Figure 5.26 Edit Rule Components Menu
+
+If  you  desire to edit the antecedent sets,  select E from the  above  
+menu (Fig 5.26). and the following menu will appear (Fig 5.27).
+.pa 
+--- Select antecedent option: ------------------------ Rule -----------------
+|Add antecedent to antecedent set     | |Name: my crude oil rule            |
+|Delete antecedent from antecedent set| |IF                                 |
+|dElete complete antecedent set       | |   AND SET:                        |
+|Next antecedent set                  | |      color = black                |
+--------------------------------------- |                                   |
+                                        |THEN                               |
+------------ Antecedent Set: -----------|      chemical = crude oil CF=1    |
+|   AND SET:                           ||                                   |
+|      color = black                   ||                                   | 
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+-----------------------------------------------------------------------------
+                   Figure 5.27 Edit Antecedent Set
+
+Select A to add an antecdent to the antecedent set shown in the  lower  
+left window.  You will be prompted for antecedent values as in Figures  
+5.6,  5.7, 5.8, 5.9, 5.10, 5.11, 5.12 and 5.13.  If you wish to delete  
+an antecedent from the antecedent set shown above (Fig 5.27), press D.   
+You can select the specific antecedents to delete (See Fig 5.28).
+
+--- Delete antecedent --------------------------------- Rule ----------------
+|density   =  high      |               |Name:   crude  oil  rule           |   
+|smell = oily           |               |IF                                 |
+|color = black          |               |   AND SET:                        |
+|quantity fz= large     |               |      density = high               |
+-------------------------               |      smell = oily                 |
+                                        |      color = black                |
+------------ Antecedent Set: -----------|      quantity fz= large           |
+|   AND SET:                           ||                                   |
+|      density = high                  ||THEN                               |
+|      smell = oily                    ||      chemical = crude oil CF=0.8  |
+|      color = black                   ||                                   |
+|      quantity fz= large              ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+|                                      ||                                   |
+-----------------------------------------------------------------------------
+       Figure 5.28 Delete specified Antecedent Set antecedents 
+
+If you need to delete the complete antecedent set shown,  press E from  
+the  menu as in Fig.  5.27.   To go to the next antecedent set for the  
+rule  that  is  being edited,  press N (Note that the ES  rule  editor  
+"cycles"  (N option) through the antecedent sets from first to  last).   
+After  the last antecedent set appears,  you will be returned  to  the  
+Edit Rule Components screen as in Fig. 5.26.
+
+If you need to Add a new consequent to the rule, press C from the Edit  
+Rule Components screen (Fig. 5.26) and the series of menus (Fig. 5.16,  
+5.17, 5.18 and 5.19) will prompt you for the new rule consequents.
+
+If  you  need to delete a consequent from the rule,  press D from  the  
+Edit  Rule Components screen (Fig.  5.26) and the following menu  will  
+appear.   Move  cursor to the rule consequent you wish to  delete  and  
+press Enter.
+
+                   --- Delete which consequent? ---
+                   |chemical = crude oil 0.8      |
+                   |need to do cleanup = yes 0.345|
+                   --------------------------------
+                  Figure 5.29 Delete rule consequent
+
+.pa 
+                       Chapter 6.  Consult Menu
+
+
+6.1  Backward Chaining
+
+If you select B from the Consult menu, the following menu will appear.   
+Move the cursor to the goal you wish to determine, and press Enter. ES  
+will attempt to determine the name of the goal, and any conclusions as  
+a result of proving the goal.  This is done by asking you questions.  
+
+
+                    ---- Determine which goal ----
+                    |Contact                     |
+                    |chemical                    |              
+                    |chemical type               |              
+                    |need to do cleanup          |
+                    ------------------------------ 
+            Figure 6.1 - Select Goal for Backward chaining
+ 
+
+ES will ask you questions to determine the requested goal.   You  will  
+see the following type of screen will appear.  
+
+----------------------------- Question ------------------------------------
+|What color is the chemical?                                              |
+|                                                                         |
+|                                                                         |
+|                                                                         |
+|                                                                         |
+|                                                                         |
+---------------------------------------------------------------------------
+--- Select option ---              ----------------- Rule -----------------
+|Assert a value     |              |Name: sulfuric acid rule              |
+|Unknown            |              |IF                                    |
+|Conclusions        |              |   AND SET:                           |
+|Explanations       |              |      color = yellow                  |
+|sTop consultation  |              |      density = medium                |
+|eXit expert system |              |      smell = sour                    |
+--------------------|              |THEN                                  |
+                                   |      chemical = H2SO4  CF=1          |
+                                   |                                      |
+                                   |                                      |
+                                   |                                      |
+                                   |                                      |
+                                   ----------------------------------------
+                      Figure 6.2 - Question menu
+
+
+If  you do not know what the fact value is,  select Unknown (U).   You  
+may also display any Conclusions (C) already determined,  Explanations  
+(E) for the Question or any parameters,  stop (T) the consultation  or  
+exit (X) to DOS.
+
+
+Now, select A (Assert a value) and the following will appear: 
+
+----------------------------- Question ------------------------------------
+|What color is the chemical?                                              |
+|                                                                         |
+|                                                                         |
+|                                                                         |
+|                                                                         |
+|                                                                         |
+---------------------------------------------------------------------------
+
+--- Select value for fact ---     ----------------- Rule -----------------
+|white                      |     |Name: sulfuric acid rule              |
+|red                        |     |IF                                    |
+|black                      |     |   AND SET:                           |
+|green                      |     |      color = yellow                  |
+|brown                      |     |      density = medium                |
+|yellow                     |     |      smell = sour                    |
+|clear                      |     |                                      |
+-----------------------------     |THEN                                  |
+                                  |      chemical = H2SO4  CF=1          |
+                                  |                                      |
+                                  |                                      |
+                                  |                                      |
+                                  |                                      |
+                                  ----------------------------------------
+                 Figure 6.3 Assert a fact value menu
+
+Now  select  the appropriate value for the fact.   You  will  next  be  
+prompted for the CF for the fact value, shown as:
+
+      ---------------------------------------------------------
+      | Type CF (-1.0 <= CF <= 1.0) for [color = black]: 0.75 |
+      ---------------------------------------------------------
+                  Figure 6.4 Set CF for a fact value
+
+
+Depending on how the rules are networked,  you may be prompted for the  
+values for several facts.
+
+ES  also allows you to assert numeric and multi-valued  facts.   Menus  
+and  explantions  are similar.   When asserting a  numeric  fact,  you  
+simply  type the number that you know the fact is.   When asserting  a  
+multiple-valued  fact,  you  select  as many values as  you  know  are  
+applicable to the fact.  You will be prompted for the CF for each fact  
+value asserted.
+
+6.2  Forward Chaining
+
+Forward  chaining is triggered by selecting F from the  Consult  menu.   
+If  F  is selected,  the following menu will appear,  allowing you  to  
+assert the value(s) for selected facts.  
+
+
+
+ 
+
+                    --- Select fact to assert ---
+                    | Contact                   |
+                    | color                     |
+                    | density                   |
+                    | need to do cleanup        |
+                    | quantity                  |
+                    | smell                     |
+                    -----------------------------
+          Figure 6.5  Assert fact value for Forward Chaining
+
+ES  will  fire  all  rules to  determine  any  conclusions.   ES  will  
+automatically backward chain if it is possible to infer a fact value.
+
+
+6.3  Conclusions
+
+After you are finished with the Forward or Backward chaining, select C  
+from  the  Consult  menu,  and  the  conclusions  determined  will  be  
+displayed,  one  at a time as shown below.   Note that if a  specified  
+fact value cannot be inferred,  and "fall through" is defined for that  
+fact, the fall through text will be displayed.
+
+
+------------------------------ Conclusion -------------------------------
+|chemical = crude oil CF=0.8                                            |
+|                                                                       |
+|The chemical spilled is crude oil.  It is very                         |
+|dangerous to the environment.  It's destruction                        |
+|can last for years.                                                    |
+|                                                                       |
+|                                                                       |
+-------------------------------------------------------------------------
+                  Figure 6.6.  Conclusion with Text
+
+
+Keep  pressing ESC or F10 to display all conclusions.   If no text  is  
+defined for a conclusion, the following conclusion window will appear:
+
+
+--------------- No conclusion text defined for inferences: ------------------
+|color = black CF=1                                                         |
+|density = high CF=1                                                        |
+|smell = oily CF=1                                                          |
+|chemical type = petroleum CF=0.8                                           |
+|                                                                           |
+|                                                                           |
+-----------------------------------------------------------------------------
+            Figure 6.7  Conclusions that do not have Text
+
+6.3  Scenario
+
+To display in the R/O editor any rules that were fired,  select S from  
+the Consult menu,  and the following will appear;  Press ESC or F10 to  
+exit the editor. 
+
+------------------------------ Scenario: --------------------------------
+|Firing rule ==>  sulfuric acid rule ...                                |
+|     Proved: color = black CF= 1                                       |
+|     Failed:  color = yellow                                           |
+| Rule: sulfuric acid rule  failed.....                                 |
+|Firing rule ==>  Shirley rule ...                                      |
+|Firing rule ==>  Base type rule ...                                    |
+|Firing rule ==>  crude oil rule ...                                    |
+|     Proved: density = high CF= 1                                      |
+|     Proved: smell = oily CF= 1                                        |
+|     Proved: chemical = crude oil CF= 0.8                              |
+| Rule: crude oil rule  proved true.....                                |
+|Firing rule ==>  rule hcl ...                                          |
+|     Failed:  color = green                                            |
+| Rule: rule hcl  failed.....                                           |
+|Firing rule ==>  benzene rule ...                                      |
+|     Failed:  color = brown                                            |
+| Rule: benzene rule  failed.....                                       |
+|Firing rule ==>  Rule for gasoline ...                                 |
+|     Failed:  color = red                                              |
+| Rule: Rule for gasoline  failed.....                                  |
+|Firing rule ==>  Sodium hydroxide rule ...                             |
+|     Failed:  color = white                                            |
+-------------------------------------------------------------------------
+                   Figure 6.8 Rule Firing Scenario
+
+.pa  
+                  Chapter 7.  Truth Maintenance Menu 
+
+ES supports two simple truth maintenance paradigms:
+
+    *   Running  - the  resultant CF is determined  by  the  following  
+    formula whenever the certainty of an inference differs in the rule  
+    base:  CF = CF1 + CF2*(1 - CF1),  eg,  if color = red with rule #1  
+    determined  CF  = 0.8 and color = red with rule #2 CF =  0.2,  the  
+    resultant CF = 0.8 + 0.2*(1 - 0.8) = 0.84.  
+
+    *   Average  - the  resultant  CF  is  the  average  of  the  CF's  
+    determined either by inference or by assertion, eg, if color = red  
+    with  CF=0.8 is determined by rule #1 and color = red with  CF=0.4  
+    is determined by rule #2, the resultant CF = (0.8 + 0.4)/2 =0.6.   
+
+7.1  Setting a threshold CF
+
+For  backwards or forward chaining,  the default  threshold  certainty  
+factor  is 0.0,  which says that a fact can be determined as "true" if  
+its CF is at or above the threshold CF.  However, you may wish to make  
+the threshold higher,  say 0.1,  so that a fact is proved true only if  
+its  CF  is  above "unknown" (CF =0.0).   To reset the  threshold  CF,  
+select T from the TruthMTE menu, and the following will appear.
+
+          -------------------------------------------------- 
+          | Type new threshold CF (-1.0 <= CF <= 1.0): 0.1 |
+          --------------------------------------------------
+                   Figure 7.1 Setting threshold CF
+
+7.2  Displaying Current Threshold CF
+
+Press  D  from the TruthMte menu to display the current  Threshold  CF  
+value.  The following prompt will appear.  Press Enter to continue.
+ 
+           ----------------------------------------------- 
+           | Threshold CF= 0.1, press Enter to continue: |
+           -----------------------------------------------
+                  Figure 7.2 Current threshold value
+
+7.3  Display current TMS Type
+
+Select  either  R  (Running) or A (Average) to set  the  current  TMS.   
+Consult  (Backward  or Forward chaining) will make use of the  current  
+TMS when doing conflict resolution. 
+
+7.4  Display current TMS
+
+From  the  TruthMte menu,  press C to display the  current  TMS.   The  
+following will appear:
+ 
+              ------------------------------------------
+              |  Current TMS= 'Average'.  Press Enter: |
+              ------------------------------------------
+                       Figure 7.3 - Current TMS
+ 
+                     Chapter 8.  Fuzzy Sets Menu
+
+This  chapter discusses fuzzy sets and fuzzy relations and the ability  
+for ES to create and edit fuzzy sets.
+
+8.1  Overview of Fuzzy Sets
+
+A  brief overview of fuzzy set relations follow.   An exhaustive study  
+of  fuzzy  sets  is  given  in  "Fuzzy  Mathematical  Techniques  with  
+Applications" by Abraham Kandel,  Addison Wesley, Publ.  See chapter 1  
+which defines fuzzy sets.
+
+
+
+8.2  Example
+ 
+An example is age => middle-aged.  This is certainly subjective, but a  
+person  could  be considered middle aged between 40 and 60,  but  some  
+might  consider  38 or 62 as middle-aged,  but  with  less  certainty.   
+Fuzzy  set  age fz= middle_aged in the ES.KB knowledge base  shows  an  
+example, described as:
+
+         30 -1.0 (not member fuzzy set) 
+         38  0.2 (slightly member fuzzy set)
+         40  1.0 (full member fuzzy set)
+         60  1.0 (ditto)
+         70 -1.0 (definitely not member fuzzy set)
+
+NOTE:   Values   of  fuzzy  set  inclusion  factors   that   are   not   
+explicitly given  are  extrapolated  by ES to determine the CF.  Note,  
+that we are also synonimously using CF and "inclusion factor". 
+
+You  might  want to make use of fuzzy set relations in your  knowledge  
+base.  Consider developing three fuzzy sets (assuming sex = male):
+         1.   weight  fz=  heavy  - 150 (-1.0) is not  heavy,  200  is  
+         somewhat heavy (maybe 0.2), 300 is certainly heavy (1.0) 
+
+         2.  height fz= tall - 7 feet (1.0)  is certainly tall, 6 feet  
+         (0.2)  is somewhat tall,  and 5 feet (-1.0) is certainly  not  
+         tall.
+
+         3.  girth fz= sizeable - a person with a 30 inch waist is not  
+         sizeable (-1.0), 35 (0.1?) and 50 (1.0).
+
+A  rule that determines if a person is a large person could look like:
+
+         RULE LARGE PERSON
+         IF
+            OR SET:
+            weight fz= heavy
+            height fz= tall
+            girth  fz= sizeable
+         THEN
+         person = large person CF= 1.0
+   
+If you are backward chaining (Consult/Backward Chain), and the goal is  
+person,  ES will prompt you for the weight,  height and width and make  
+use  of  the largest inclusion (CF) factor and thus determine  if  the  
+person under consideration actually is a large person.  If you are the  
+owner  of  a Large Men's Store,  you would be very interested  in  the  
+above rule.
+
+
+8.3  Fuzzy Relations
+
+The following fuzzy set rule relations are supported:
+
+    *  fz= -- if the relation is a member of the fuzzy set (CF > 0.0),  
+    the rule antecedent proves true  
+                         eg: age fz= middle_age. 
+                          If age = 39, CF = 0.9
+
+            FZ=:  CF (X) must be > 0.0 AND within envelope
+    **********************************************************
+    *    CF ^                                                *
+    *       |              . .                               *
+    *       |           .      .                             *
+    *       |         .         .            ..              *
+    *       |       .            .          .  .             *
+    *       |      .     X         .       . X  .            *
+    *  0.0  ---------------------------------------> VALUE   *
+    *            .                   .    .                  *
+    *          .                       . .                   *
+    **********************************************************
+
+      
+    *   fz< -- if the relation proves less than the smallest inclusion  
+    factor of a fuzzy set.
+                         eg:  age fz< middle_age
+                          If age = 32, CF = -1.0
+
+    FZ<: CF (X) must be less than any number contained in envelope
+    **********************************************************
+    *    CF ^                                                *
+    *       |              . .                               *
+    *       |           .      .                             *
+    *       |         .         .            ..              *
+    *       |   X   .            .          .  .             *
+    *       |      .               .       .    .            *
+    *  0.0  ---------------------------------------> VALUE   *
+    *            .                   .    .                  *
+    *          .                       . .                   *
+    **********************************************************
+
+
+    *   fz> -- if the relation proves greater than the largest  factor  
+    in a fuzzy set.
+                         eg:  age fz> middle_age         
+                          If age = 70, CF = -1.0
+ 
+  FZ>:  X (CF) must be greater than any number contained in envelope
+    **********************************************************
+    *    CF ^                                                *
+    *       |              . .                               *
+    *       |           .      .                             *
+    *       |         .         .            ..              *
+    *       |       .            .          .  .   X         *
+    *       |      .               .       .    .            *
+    *  0.0  ---------------------------------------> VALUE   *
+    *            .                   .    .                  *
+    *          .                       . .                   *
+    **********************************************************
+
+
+    *   fz<> -- proves trues if the number is NOT a member of a  fuzzy  
+    set.
+                         eg:  age fz<> middle_age.
+                          If age = 30, CF = 1.0
+
+         FZ<>:  X (CF) must NOT be contained within envelope  
+    **********************************************************
+    *    CF ^                                                *
+    *       |              . .                               *
+    *       |           .      .                             *
+    *       |         .         .            ..              *
+    *       |  X    .            .     X    .  .   X         *
+    *       |      .               .       .    .            *
+    *  0.0  ---------------------------------------> VALUE   *
+    *            .                   .    .                  *
+    *          .                       . .                   *
+    **********************************************************
+
+
+
+8.4  Adding a New Fuzzy Set
+
+If you press N from the fZsets menu, the following will appear:
+
+                     --- Select numeric fact ---
+                     |age                      |
+                     |height                   |
+                     |salary                   |
+                     |weight                   |
+                     ---------------------------
+                  Figure 8.1 - Adding New Fuzzy Set
+
+You should type the name of the fuzzy set as follows: 
+ 
+     ----------------------------------------------------------- 
+     | Type fuzzy set relation[name] for fact age:  very short |
+     -----------------------------------------------------------
+                   Figure 8.2 - New fuzzy set name
+
+Next,  the following will appear.   Type a numeric value for the fuzzy  
+set:   
+ 
+               ---------------------------------------
+               | Type value for age = very short:  4 |
+               ---------------------------------------
+                Figure 8.3 - Type value for fuzzy set
+
+Next, type the inclusion factor for the value: 
+ 
+                --------------------------------------
+                | Type CF (-1.0 <= CF <= +1.0) : 1.0 |
+                --------------------------------------
+                  Figure 8.4 - Type inclusion factor
+
+ES  allows as many fuzzy values (and associated inclusion factors)  as  
+necessary.   After  a value/inclusion factor is input,  the  following  
+menu will appear.  Select Y if more value/inclusion factors need to be  
+defined. 
+
+                --- Add another fz set component: ---
+                |Yes                                |
+                |No                                 |
+                -------------------------------------
+        Figure 8.5 - Add another fz set value/inclusion factor
+
+8.5  Delete fuzzy sets
+
+To  delete  a  fuzzy  set,  select D from the  fZsets  menu,  and  the  
+following  menu  will appear.   Move cursor to fuzzy set you  wish  to  
+delete and press Enter.
+
+
+
+
+
+                     --- Select numeric fact ---
+                     |age                      |
+                     |height                   |
+                     |salary                   |
+                     |weight                   |
+                     ---------------------------
+                   Figure 8.6 - Select numeric fact
+
+If  you select "* next fuzzy set" from the menu (Fig 8.7),  ES scrolls  
+through  the available fuzzy sets of the fact you  selected.   ESC  at  
+this point returns you to the fZsets pulldown (Fig 2.60).
+
+                    -----Fact age: very short----
+                    |* delete complete fuzzy set|
+                    |* next fuzzy set           |
+                    |4 1                        |
+                    -----------------------------
+                    Figure 8.7 - Select fuzzy set  
+
+If   you  select  "*  delete  complete  fuzzy  set",   the   following  
+confirmation prompt appears.  Type y to delete fuzzy set. 
+ 
+                      -------------------------
+                      | Are you sure (y/n): y |
+                      -------------------------
+          Figure 8.8 - Confirmation delete fuzzy set prompt
+
+8.6  Edit Fuzzy Sets
+
+Press  E  from the fZsets menu,  and the following menu  will  appear.   
+Move cursor to fact who's fuzzy sets you wish to edit and press Enter.
+
+                   ---Edit which fz set for: age---
+                   |13                            |
+                   |16                            |
+                   |40                            |
+                   |59           
+                   |age extremes                  |
+                   |middle_aged                   |
+                   |old                           |
+                   |very_old                      |
+                   |very_young                    |
+                   |young                         |
+                   -------------------------------- 
+                 Figure 8.9 Select fuzzy set to edit
+ 
+Move  the  cursor to the fuzzy set you wish to edit and  press  Enter.   
+The following menu will then appear:
+
+
+
+
+
+
+ 
+                   -------age : middle_aged-------
+                   |* add fuzzy set components   |
+                   |* delete fuzzy set components|
+                   |* plot fuzzy set             |
+                   |0 -1                         |
+                   |20 -0.95                     |
+                   |32 -0.2                      |
+                   |40 1                         |
+                   |59 1                         |
+                   |62 -0.1                      |
+                   ------------------------------- 
+                 Figure 8.10 - Edit fuzzy set options 
+ 
+If  you  select  "*  add fuzzy set components"  option,  you  will  be  
+prompted for the fuzzy set component and inclusion factor (see Section  
+8.4 above, with figures 8.2, 8.3, 8.4, and 8.5).
+
+If  you select "* delete fuzzy set components" option from fig.  8.10,  
+the  following menu will appear.   Move cursor to component to  delete  
+and press Enter.  Press ESC key to stop deleting components.
+ 
+          ---Delete fz set component for: age middle_aged---
+          |0 -1                                            |
+          |20 -0.95                                        |
+          |35 -0.2                                         |
+          |38 0.1                                          |
+          |40 1                                            |
+          |59 1                                            |
+          |60 0.5                                          |
+          |65 -1                                           |
+          --------------------------------------------------
+           Fig. 8.11 - delete specific fuzzy set components
+
+To  plot the specific fuzzy set,  select "* Plot fuzzy set".   A  full  
+screen graphic will appear,  similar to plots described in 8.3  above.   
+When finished viewing the graphic, press Enter.
+
