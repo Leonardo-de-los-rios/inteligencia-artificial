@@ -1,46 +1,72 @@
-from sko.GA import GA_TSP
 import numpy as np
+from sko.GA import GA_TSP
 
-def leer_distancias(filename, num_ciudades):
-    '''Lee un archivo de texto que contiene la distancia que separa cada una de las
-    ciudades, desde el archivo filename. La matriz resultante que devuelve pordra
-    ser simetrica o no, dependiendo de si no es lo mismo ir de A a B que de B a A'''
-    distancias= np.zeros((num_ciudades,num_ciudades))
-    with open(filename, 'r') as file: 
-        for line in file:
-            partes = line.split()
-            distancias[int(partes[1])-1][int(partes[2])-1] = float(partes[3])
+
+def leer_distancias(filename):
+    with open(filename, "r") as f:
+        data = f.readlines()
+
+    num_ciudades = int(data[-1].split()[1])
+    distancias = np.zeros((num_ciudades, num_ciudades))
+
+    for line in data:
+        partes = line.split()
+        i = int(partes[1]) - 1
+        j = int(partes[2]) - 1
+        distancia = float(partes[3])
+        distancias[i][j] = distancia
+        distancias[j][i] = distancia  # Asumimos que la distancia es simétrica
+
     return distancias
 
-# Función aptitud(fitness) para calcular la distancia total de una ruta
-def cal_total_distance(ruta):
-    limite_distancia = 15000
-    total_distance = 0
-    for i in range(1,len(ruta)):
-        total_distance += matriz_distancias[ruta[i-1]][ruta[i]]
-    if total_distance > limite_distancia:
-        total_distance = 10000000
-    return total_distance
+
+def calcular_ndim(distancias, max_distancia):
+    num_ciudades = len(distancias)
+    mejor_ndim = 0
+    mejor_ruta = None
+    mejor_distancia = 0
+
+    for ndim in range(2, num_ciudades + 1):
+        ruta, distancia = metodo_genetico(distancias, ndim)
+        if distancia <= max_distancia:
+            mejor_ndim = ndim
+            mejor_ruta = ruta
+            mejor_distancia = distancia
+        else:
+            break
+
+    return mejor_ndim, mejor_ruta, mejor_distancia
 
 
-#Main
-num_ciudades = 100
-matriz_distancias = leer_distancias("DIST100.txt", num_ciudades)
-#print(matriz_distancias)
-ndim = 50
-mutacion = 0.3
-niter = 1500
-size = 50
-print("===============================Algoritmos Geneticos===============================")
-print(f"Numero de ciudades testeado:",ndim, ". Probabilidad de mutacion: ", mutacion, "Iteraciones: ", niter, ". Population", size)
-# Instancia de GA para TSP (Población = 50, Generaciones = 1500, Prob Mutacion = 0.3)
-ga_tsp = GA_TSP(func=cal_total_distance, n_dim=ndim, size_pop=size, max_iter=niter, prob_mut=mutacion)
+def metodo_genetico(distancias, ndim):
+    num_points = ndim
 
-#Se obtiene la mejor ruta conformada por todas las ciudades y la mejor distancia.
-mejor_ruta, mejor_distancia = ga_tsp.run()
+    def cal_total_distance(routine):
+        routine = np.concatenate([routine, [routine[0]]])
+        return sum(
+            [
+                distancias[routine[i % num_points], routine[(i + 1) % num_points]]
+                for i in range(num_points)
+            ]
+        )
 
-for i in range(len(mejor_ruta)):
-    mejor_ruta[i] += 1
+    ga_tsp = GA_TSP(
+        func=cal_total_distance,
+        n_dim=num_points,
+        size_pop=50,
+        max_iter=500,
+        prob_mut=0.1,
+    )
+    best_points, best_distance = ga_tsp.run()
 
-print(f"Mejor distancia encontrada: {mejor_distancia} km.")
-print(f"Mejor ruta encontrada: {mejor_ruta}")
+    best_route = np.concatenate([best_points, [best_points[0]]])
+    return best_route, best_distance
+
+
+# Main
+distancias = leer_distancias("DIST100.TXT")
+max_distancia = 15000
+ndim, mejor_ruta, mejor_distancia = calcular_ndim(distancias, max_distancia)
+print(f"Cantidad máxima de ciudades: {ndim}")
+print(f"Mejor ruta: {mejor_ruta}")
+print(f"Distancia recorrida: {mejor_distancia} km.")
