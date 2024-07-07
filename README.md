@@ -17,7 +17,7 @@
 
 ### Práctico introductorio para perfeccionar el razonamiento lógico.
 
-- #### [Aproximación de X e Y](https://github.com/Leonardo-de-los-rios/inteligencia-artificial/blob/main/Unidad%201/Pr%C3%A1ctico%201/ejercicio1.py)
+- #### [Aproximación de X e Y](https://github.com/Leonardo-de-los-rios/inteligencia-artificial/blob/main/Entrega%201/ejercicio1.py)
 
 #### Link del pdf resuelto:
 
